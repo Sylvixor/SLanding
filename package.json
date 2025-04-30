@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "description": "SLanding: A high-DPI-friendly, dark & blurple single-page showcase site using Vite + TypeScript",
     "scripts": {
-      "dev": "vite",
+      "dev": "vite --host",
       "build": "vite build",
       "preview": "vite preview"
     },
