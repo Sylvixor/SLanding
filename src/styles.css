@@ -29,7 +29,8 @@ canvas {
     text-align: center;
     z-index: 10;
     opacity: 0;
-    animation: fadeInUp 1.6s ease-out forwards;
+    visibility: hidden; /* Add this */
+    transition: opacity 0.2s ease-out;
 }
   
 #welcome-text {
@@ -42,18 +43,17 @@ canvas {
 }
   
 #welcome-image {
-    width: 480px;
+    width: 600px;
     height: auto;
-    border: 6px solid hsl(260, 100%, 88%); /* lighter and thicker */
+    border: 4px solid #bba6ff; /* Updated color */
     border-radius: 22px;
-    background: none; /* remove background blur if desired */
+    background: rgba(20, 20, 40, 0.65);
     box-shadow: 0 0 40px rgba(130, 100, 255, 0.5);
     transition: transform 0.4s ease, box-shadow 0.4s ease;
     cursor: pointer;
     opacity: 0;
     animation: fadeInImage 1.6s ease-out 1s forwards;
-    padding: 0; /* removes spacing between image and border */
-  }
+}
   
 #welcome-image:hover {
     transform: scale(1.06);

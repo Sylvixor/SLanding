@@ -67,7 +67,7 @@ function animate() {
   
     localStorage.setItem("particles", JSON.stringify(particles));
     requestAnimationFrame(animate);
-  }
+}
 
 animate();
 
@@ -78,4 +78,14 @@ window.addEventListener("DOMContentLoaded", () => {
         window.open("https://your-link-here.com", "_blank");
       });
     }
-  });
+});
+
+window.addEventListener("load", () => {
+    const welcome = document.getElementById("welcome-container");
+    if (welcome) {
+      setTimeout(() => {
+        welcome.style.visibility = "visible";
+        welcome.style.animation = "fadeInUp 1.6s ease-out forwards";
+      }, 50); // Small delay ensures layout is done
+    }
+});
