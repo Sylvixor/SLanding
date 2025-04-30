@@ -1,0 +1,108 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: #0a0a1a;
+    overflow: hidden;
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+
+canvas {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+  
+#welcome-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 10;
+    opacity: 0;
+    animation: fadeInUp 1.6s ease-out forwards;
+}
+  
+#welcome-text {
+    font-size: 2rem;
+    margin-top: 24px;
+    color: hsl(260, 100%, 85%);
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    animation: fadeInText 1.8s ease-out 0.4s forwards, pulseText 3s ease-in-out infinite;
+}
+  
+#welcome-image {
+    width: 480px;
+    height: auto;
+    border: 4px solid hsl(260, 100%, 70%);
+    border-radius: 22px;
+    padding: 12px;
+    background: rgba(20, 20, 40, 0.65);
+    box-shadow: 0 0 40px rgba(130, 100, 255, 0.4);
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    cursor: pointer;
+    opacity: 0;
+    animation: fadeInImage 1.6s ease-out 1s forwards;
+    will-change: transform, box-shadow;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+  
+#welcome-image:hover {
+    transform: scale(1.06);
+    box-shadow: 0 0 60px rgba(160, 130, 255, 0.75);
+}
+  
+@keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, -60%);
+    }
+    100% {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+}
+  
+@keyframes fadeInText {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+}
+  
+@keyframes fadeInImage {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+}
+  
+@keyframes pulseText {
+    0%, 100% {
+      color: hsl(260, 100%, 85%);
+      text-shadow: 0 2px 6px rgba(130, 100, 255, 0.3);
+    }
+    50% {
+      color: hsl(260, 100%, 95%);
+      text-shadow: 0 4px 12px rgba(130, 100, 255, 0.6);
+    }
+}
