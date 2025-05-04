@@ -36,7 +36,7 @@ const referenceDPR = 2;
 const scaleFactor = dpr / referenceDPR;
 const speedFactor = Math.pow(scaleFactor, 1);
 const densityAdjustment = Math.pow(referenceDPR / dpr, 0.8);
-const baseAreaPerParticle = 12000 * densityAdjustment;
+const baseAreaPerParticle = 14000 * densityAdjustment;
 
 const numParticles = Math.floor((window.innerWidth * window.innerHeight) / baseAreaPerParticle);
 
@@ -46,7 +46,7 @@ for (let i = 0; i < numParticles; i++) {
     y: Math.random() * window.innerHeight,
     vx: (Math.random() - 0.5) * 0.2 * speedFactor,
     vy: (Math.random() - 0.5) * 0.2 * speedFactor,
-    radius: (Math.random() * 1.5 + 0.5) * scaleFactor,
+    radius: (Math.random() * 1.5 + 0.5) * Math.pow(scaleFactor, 0.3),
     hueOffset: Math.random() * 60,
     alpha: 0,
   });
@@ -66,10 +66,14 @@ function animate() {
     if (p.alpha < 1) p.alpha += 0.01;
 
     const hue = (blurple.h + p.hueOffset) % 360;
+
     ctx.beginPath();
+    ctx.shadowBlur = p.radius * 4;
+    ctx.shadowColor = `hsla(${hue}, ${blurple.s}%, ${blurple.l}%, ${p.alpha})`;
     ctx.fillStyle = `hsla(${hue}, ${blurple.s}%, ${blurple.l}%, ${p.alpha})`;
     ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
     ctx.fill();
+    ctx.shadowBlur = 0;
   }
 
   requestAnimationFrame(animate);

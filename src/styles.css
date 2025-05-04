@@ -9,7 +9,7 @@ html, body {
     justify-content: center;
     align-items: center;
 }
-
+  
 canvas {
     display: block;
     position: fixed;
@@ -19,7 +19,7 @@ canvas {
     height: 100%;
     z-index: -1;
 }
-
+  
 #welcome-container {
     position: absolute;
     top: 50%;
@@ -30,7 +30,7 @@ canvas {
     animation: opacity 0.2s ease-out;
     opacity: 0;
 }
-
+  
 #welcome-text {
     font-size: 2rem;
     margin-top: 24px;
@@ -38,11 +38,11 @@ canvas {
     text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
     opacity: 0;
     animation:
-        fadeInText 1.8s ease-out 0.4s forwards,
-        pulseText 3s ease-in-out infinite,
-        idleText 3s ease-in-out infinite;
+      fadeInText 1.8s ease-out 0.4s forwards,
+      pulseText 3s ease-in-out infinite,
+      idleText 3s ease-in-out infinite;
 }
-
+  
 #welcome-image {
     width: 600px;
     height: auto;
@@ -54,97 +54,96 @@ canvas {
     cursor: pointer;
     opacity: 0;
     animation:
-        fadeInImage 1.6s ease-out 1s forwards,
-        idleImage 3s ease-in-out infinite;
+      fadeInImage 1.6s ease-out 1s forwards,
+      idleImage 3s ease-in-out infinite;
 }
-
+  
 #welcome-image:hover {
     transform: scale(1.1);
     box-shadow: 0 0 45px rgba(160, 130, 255, 0.75);
     animation-play-state: paused;
 }
-
+  
 @keyframes fadeInUp {
     0% {
-        opacity: 0;
-        transform: translate(-50%, -65%);
+      opacity: 0;
+      transform: translate(-50%, -65%);
     }
     100% {
-        opacity: 1;
-        transform: translate(-50%, -50%);
+      opacity: 1;
+      transform: translate(-50%, -50%);
     }
 }
-
+  
 @keyframes fadeInText {
     from {
-        opacity: 0;
-        transform: translateY(10px);
+      opacity: 0;
+      transform: translateY(10px);
     }
     to {
-        opacity: 1;
-        transform: translateY(0);
+      opacity: 1;
+      transform: translateY(0);
     }
 }
-
+  
 @keyframes fadeInImage {
     from {
-        opacity: 0;
-        transform: scale(0.9);
+      opacity: 0;
+      transform: scale(0.9);
     }
     to {
-        opacity: 1;
-        transform: scale(1);
+      opacity: 1;
+      transform: scale(1);
     }
 }
-
+  
 @keyframes pulseText {
     0%, 100% {
-        color: hsl(260, 100%, 85%);
-        text-shadow: 0 2px 6px rgba(130, 100, 255, 0.3);
+      color: hsl(260, 100%, 85%);
+      text-shadow: 0 2px 6px rgba(130, 100, 255, 0.3);
     }
     50% {
-        color: hsl(260, 100%, 95%);
-        text-shadow: 0 4px 12px rgba(130, 100, 255, 0.6);
+      color: hsl(260, 100%, 95%);
+      text-shadow: 0 4px 12px rgba(130, 100, 255, 0.6);
     }
 }
-
+  
 @keyframes idleText {
     0%, 100% {
-        transform: translateY(0);
+      transform: translateY(0);
     }
     50% {
-        transform: translateY(-5px);
+      transform: translateY(-5px);
     }
 }
-
+  
 @keyframes idleImage {
     0%, 100% {
-        transform: scale(1);
+      transform: scale(1);
     }
     50% {
-        transform: scale(1.02);
+      transform: scale(1.02);
     }
 }
-
+  
 @media (max-width: 768px) {
     #welcome-image {
-        width: 90vw;
-        border-width: 4px;
+      width: 90vw;
+      border-width: 4px;
     }
-
+  
     #welcome-text {
-        font-size: 1.2rem;
-        margin-top: 16px;
-        padding: 0 12px;
+      font-size: 1.2rem;
+      margin-top: 16px;
+      padding: 0 12px;
     }
-
+  
     #welcome-container {
-        width: 100%;
-        padding: 0 16px;
+      width: 100%;
+      padding: 0 16px;
     }
 }
-
+  
 #welcome-text, #welcome-image {
     will-change: transform, opacity;
-  }
-  
+}
