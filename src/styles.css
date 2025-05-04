@@ -143,3 +143,8 @@ canvas {
         padding: 0 16px;
     }
 }
+
+#welcome-text, #welcome-image {
+    will-change: transform, opacity;
+  }
+  

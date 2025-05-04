@@ -31,14 +31,22 @@ interface Particle {
 const particles: Particle[] = [];
 const blurple = { h: 260, s: 100, l: 70 };
 
-const numParticles = Math.floor((window.innerWidth * window.innerHeight) / 8000);
+const dpr = window.devicePixelRatio || 1;
+const referenceDPR = 2;
+const scaleFactor = dpr / referenceDPR;
+const speedFactor = Math.pow(scaleFactor, 1);
+const densityAdjustment = Math.pow(referenceDPR / dpr, 0.8);
+const baseAreaPerParticle = 12000 * densityAdjustment;
+
+const numParticles = Math.floor((window.innerWidth * window.innerHeight) / baseAreaPerParticle);
+
 for (let i = 0; i < numParticles; i++) {
   particles.push({
     x: Math.random() * window.innerWidth,
     y: Math.random() * window.innerHeight,
-    vx: (Math.random() - 0.5) * 0.4,
-    vy: (Math.random() - 0.5) * 0.4,
-    radius: (Math.random() * 1.5 + 0.5) / window.devicePixelRatio,
+    vx: (Math.random() - 0.5) * 0.2 * speedFactor,
+    vy: (Math.random() - 0.5) * 0.2 * speedFactor,
+    radius: (Math.random() * 1.5 + 0.5) * scaleFactor,
     hueOffset: Math.random() * 60,
     alpha: 0,
   });
