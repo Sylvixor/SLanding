@@ -1,16 +1,22 @@
 const canvas = document.getElementById("bg") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d")!;
-let width = window.innerWidth * window.devicePixelRatio;
-let height = window.innerHeight * window.devicePixelRatio;
-canvas.width = width;
-canvas.height = height;
 
-window.addEventListener("resize", () => {
-  width = window.innerWidth * window.devicePixelRatio;
-  height = window.innerHeight * window.devicePixelRatio;
-  canvas.width = width;
-  canvas.height = height;
-});
+function resizeCanvas() {
+  const dpr = window.devicePixelRatio || 1;
+  const logicalWidth = window.innerWidth;
+  const logicalHeight = window.innerHeight;
+
+  canvas.style.width = `${logicalWidth}px`;
+  canvas.style.height = `${logicalHeight}px`;
+  canvas.width = logicalWidth * dpr;
+  canvas.height = logicalHeight * dpr;
+
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.scale(dpr, dpr);
+}
+
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
 
 interface Particle {
   x: number;
@@ -25,67 +31,57 @@ interface Particle {
 const particles: Particle[] = [];
 const blurple = { h: 260, s: 100, l: 70 };
 
-const storedParticles = localStorage.getItem("particles");
-if (storedParticles) {
-  const parsedParticles = JSON.parse(storedParticles);
-  parsedParticles.forEach((p: Particle) => {
-    particles.push(p);
+const numParticles = Math.floor((window.innerWidth * window.innerHeight) / 8000);
+for (let i = 0; i < numParticles; i++) {
+  particles.push({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    vx: (Math.random() - 0.5) * 0.4,
+    vy: (Math.random() - 0.5) * 0.4,
+    radius: (Math.random() * 1.5 + 0.5) / window.devicePixelRatio,
+    hueOffset: Math.random() * 60,
+    alpha: 0,
   });
-} else {
-  for (let i = 0; i < 120; i++) {
-    particles.push({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.8,
-      vy: (Math.random() - 0.5) * 0.8,
-      radius: Math.random() * 2 + 1,
-      hueOffset: Math.random() * 60,
-      alpha: 0,
-    });
-  }
 }
 
 function animate() {
-    ctx.fillStyle = "rgb(10, 10, 26)";
-    ctx.fillRect(0, 0, width, height);
-  
-    for (const p of particles) {
-      p.x += p.vx;
-      p.y += p.vy;
-  
-      if (p.x < 0 || p.x > width) p.vx *= -1;
-      if (p.y < 0 || p.y > height) p.vy *= -1;
-  
-      if (p.alpha < 1) p.alpha += 0.01;
-  
-      const hue = (blurple.h + p.hueOffset) % 360;
-      ctx.beginPath();
-      ctx.fillStyle = `hsla(${hue}, ${blurple.s}%, ${blurple.l}%, ${p.alpha})`;
-      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  
-    localStorage.setItem("particles", JSON.stringify(particles));
-    requestAnimationFrame(animate);
+  ctx.fillStyle = "rgb(10, 10, 26)";
+  ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+  for (const p of particles) {
+    p.x += p.vx;
+    p.y += p.vy;
+
+    if (p.x < 0 || p.x > window.innerWidth) p.vx *= -1;
+    if (p.y < 0 || p.y > window.innerHeight) p.vy *= -1;
+
+    if (p.alpha < 1) p.alpha += 0.01;
+
+    const hue = (blurple.h + p.hueOffset) % 360;
+    ctx.beginPath();
+    ctx.fillStyle = `hsla(${hue}, ${blurple.s}%, ${blurple.l}%, ${p.alpha})`;
+    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  requestAnimationFrame(animate);
 }
 
 animate();
 
 window.addEventListener("DOMContentLoaded", () => {
-    const image = document.getElementById("center-image");
-    if (image) {
-      image.addEventListener("click", () => {
-        window.open("https://your-link-here.com", "_blank");
-      });
-    }
-});
+  const image = document.getElementById("welcome-image") as HTMLImageElement;
+  if (image) {
+    image.addEventListener("click", () => {
+      window.open("https://your-link-here.com", "_blank");
+    });
+  }
 
-window.addEventListener("load", () => {
-    const welcome = document.getElementById("welcome-container");
-    if (welcome) {
-      setTimeout(() => {
-        welcome.style.visibility = "visible";
-        welcome.style.animation = "fadeInUp 1.6s ease-out forwards";
-      }, 50); // Small delay ensures layout is done
-    }
+  const welcome = document.getElementById("welcome-container");
+  if (welcome) {
+    setTimeout(() => {
+      welcome.style.visibility = "visible";
+      welcome.style.animation = "fadeInUp 1.6s ease-out forwards";
+    }, 50);
+  }
 });

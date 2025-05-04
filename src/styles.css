@@ -24,12 +24,11 @@ canvas {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -60%);
     text-align: center;
     z-index: 10;
+    animation: opacity 0.2s ease-out;
     opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.2s ease-out;
 }
 
 #welcome-text {
@@ -38,31 +37,37 @@ canvas {
     color: hsl(260, 100%, 85%);
     text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
     opacity: 0;
-    animation: fadeInText 1.8s ease-out 0.4s forwards, pulseText 3s ease-in-out infinite;
+    animation:
+        fadeInText 1.8s ease-out 0.4s forwards,
+        pulseText 3s ease-in-out infinite,
+        idleText 3s ease-in-out infinite;
 }
 
 #welcome-image {
     width: 600px;
     height: auto;
-    border: 6px solid rgb(184, 167, 249);
-    border-radius: 22px;
+    border: 4px solid rgb(184, 167, 249);
+    border-radius: 12px;
     background: rgba(20, 20, 40, 0.65);
     box-shadow: 0 0 40px rgba(130, 100, 255, 0.5);
     transition: transform 0.4s ease, box-shadow 0.4s ease;
     cursor: pointer;
     opacity: 0;
-    animation: fadeInImage 1.6s ease-out 1s forwards;
+    animation:
+        fadeInImage 1.6s ease-out 1s forwards,
+        idleImage 3s ease-in-out infinite;
 }
 
 #welcome-image:hover {
     transform: scale(1.1);
-    box-shadow: 0 0 60px rgba(160, 130, 255, 0.75);
+    box-shadow: 0 0 45px rgba(160, 130, 255, 0.75);
+    animation-play-state: paused;
 }
 
 @keyframes fadeInUp {
     0% {
         opacity: 0;
-        transform: translate(-50%, -60%);
+        transform: translate(-50%, -65%);
     }
     100% {
         opacity: 1;
@@ -103,6 +108,24 @@ canvas {
     }
 }
 
+@keyframes idleText {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes idleImage {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+}
+
 @media (max-width: 768px) {
     #welcome-image {
         width: 90vw;
@@ -118,17 +141,5 @@ canvas {
     #welcome-container {
         width: 100%;
         padding: 0 16px;
-    }
-}
-
-@media (min-width: 1440px) {
-    .dots {
-        animation-duration: 20s;
-    }
-}
-
-@media (min-width: 2560px) {
-    .dots {
-        animation-duration: 30s;
     }
 }
