@@ -85,7 +85,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const image = document.getElementById("welcome-image") as HTMLImageElement;
   if (image) {
     image.addEventListener("click", () => {
-      window.open("https://your-link-here.com", "_blank");
+      window.open("https://homebrew.sylvixor.com", "_blank");
     });
   }
 
